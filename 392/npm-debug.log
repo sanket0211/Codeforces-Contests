@@ -1,0 +1,22 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/sanket/local/bin/node',
+1 verbose cli   '/home/sanket/local/bin/npm',
+1 verbose cli   'run',
+1 verbose cli   'server.generator' ]
+2 info using npm@2.11.3
+3 info using node@v0.12.7
+4 verbose config Skipping project config: /home/sanket/.npmrc. (matches userconfig)
+5 verbose stack Error: ENOENT, open '/home/sanket/package.json'
+5 verbose stack     at Error (native)
+6 verbose cwd /home/sanket/codeforces/contests/392
+7 error Linux 3.13.0-107-generic
+8 error argv "/home/sanket/local/bin/node" "/home/sanket/local/bin/npm" "run" "server.generator"
+9 error node v0.12.7
+10 error npm  v2.11.3
+11 error path /home/sanket/package.json
+12 error code ENOENT
+13 error errno -2
+14 error enoent ENOENT, open '/home/sanket/package.json'
+14 error enoent This is most likely not a problem with npm itself
+14 error enoent and is related to npm not being able to find a file.
+15 verbose exit [ -2, true ]
