@@ -41,41 +41,38 @@ lli modpow(lli a,lli n,lli temp){lli res=1,y=a;while(n>0){if(n&1)res=(res*y)%tem
 
 
 int main(){
-	lli n,m,k;
-	cin >> n >> m >> k;
-	deque<int>st;vector<int>v;
+	vector<int>dp;
+	lli n;cin >> n;
+	for(int i=0;i<=n;i++){
+		dp.push_back(0);
+	}
+	string s;
+	char ch;
+	vector<char>v;
 	for(int i=0;i<n;i++){
-		lli l;cin >> l;
-		v.PB(l);
-	}
-	sort(v.begin(),v.end());
-	int cnt=0;int ptr1=0;int ptr2=0;
-	st.push_back(0);
-	while(ptr2<v.size()){
-		if( (v[ptr2]-v[ptr1]+1)>m ){
-			st.pop_front();
-			ptr1=st.front();continue;
+		cin >> ch;
+		v.push_back(ch);
+		if(i==0){
+			dp[i]=1;
 		}
-		if( (v[ptr2]-v[ptr1]+1) >= m ){
-			if( (st.size()+1)>=k ){
-				st.pop_back();
-				cnt++;
-				ptr2++;
+		else{
+			if( v[i-1]=='f' ){
+				dp[i]=dp[i-1];
 			}
-			st.pop_front();
-			ptr1=st.front();continue;
-
+			else{
+				int temp=1;
+				for(int j=0;j<i;j++){
+					if(v[j]=='f'){
+						dp[i]+=dp[j];
+					}
+				}
+				dp[i]+=dp[i-1];
+				dp[i]++;
+				
+			}
 		}
-		else if(  (st.size()+1)>=k ){
-			ptr2++;
-			st.pop_back();
-			cnt++;
-			continue;
-		}
-		st.push_back(ptr2);
-		ptr2++;
-		//trace1(ptr2);
+		trace2(i,dp[i]);
 	}
-	cout << cnt << endl;
-	return 0;
+	cout << dp[n-1] << endl;
+	return 0;	
 }

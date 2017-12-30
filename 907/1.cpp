@@ -41,41 +41,25 @@ lli modpow(lli a,lli n,lli temp){lli res=1,y=a;while(n>0){if(n&1)res=(res*y)%tem
 
 
 int main(){
-	lli n,m,k;
-	cin >> n >> m >> k;
-	deque<int>st;vector<int>v;
-	for(int i=0;i<n;i++){
-		lli l;cin >> l;
-		v.PB(l);
+	lli v1, v2, v3, vm;
+	cin >> v3 >> v2 >> v1 >> vm;
+	lli c1=v1,c2=2*v2,c3=2*v3;
+	//trace4(c1,c2,c3,vm);
+	if( vm<=c1&&vm<=c2&&vm<=c3&&(2*vm)>=c1&&(2*vm)<c2&&(2*vm)<c3){
+		cout << c3 << endl;
+		cout << c2 << endl;
+		cout << c1 << endl;
+		return 0;
 	}
-	sort(v.begin(),v.end());
-	int cnt=0;int ptr1=0;int ptr2=0;
-	st.push_back(0);
-	while(ptr2<v.size()){
-		if( (v[ptr2]-v[ptr1]+1)>m ){
-			st.pop_front();
-			ptr1=st.front();continue;
-		}
-		if( (v[ptr2]-v[ptr1]+1) >= m ){
-			if( (st.size()+1)>=k ){
-				st.pop_back();
-				cnt++;
-				ptr2++;
-			}
-			st.pop_front();
-			ptr1=st.front();continue;
-
-		}
-		else if(  (st.size()+1)>=k ){
-			ptr2++;
-			st.pop_back();
-			cnt++;
-			continue;
-		}
-		st.push_back(ptr2);
-		ptr2++;
-		//trace1(ptr2);
+	c1=vm;
+	if( v1<=c1&&vm<=c2&&vm<=c3&&(2*v1)>=c1&&(2*vm)<c2&&(2*vm)<c3){
+		cout << c3 << endl;
+		cout << c2 << endl;
+		cout << c1 << endl;
+		return 0;
 	}
-	cout << cnt << endl;
+	else{
+		cout << "-1" << endl;
+	}
 	return 0;
 }

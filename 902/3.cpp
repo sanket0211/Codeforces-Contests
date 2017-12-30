@@ -39,43 +39,70 @@ typedef vector< vi > vvi;
 typedef vector< ii > vii;
 lli modpow(lli a,lli n,lli temp){lli res=1,y=a;while(n>0){if(n&1)res=(res*y)%temp;y=(y*y)%temp;n/=2;}return res%temp;}
 
-
 int main(){
-	lli n,m,k;
-	cin >> n >> m >> k;
-	deque<int>st;vector<int>v;
-	for(int i=0;i<n;i++){
-		lli l;cin >> l;
-		v.PB(l);
+	lli n;cin >> n;
+	vector<int>v;int flag1=0;
+	for(int i=0;i<=n;i++){
+		lli k;cin >> k;v.push_back(k);
 	}
-	sort(v.begin(),v.end());
-	int cnt=0;int ptr1=0;int ptr2=0;
-	st.push_back(0);
-	while(ptr2<v.size()){
-		if( (v[ptr2]-v[ptr1]+1)>m ){
-			st.pop_front();
-			ptr1=st.front();continue;
+	int flag=0;
+	for(int i=0;i<=n;i++){
+		if(flag==1&&v[i]>=2){
+			flag1=1;
+			cout << "ambiguous" << endl;
+			break;
 		}
-		if( (v[ptr2]-v[ptr1]+1) >= m ){
-			if( (st.size()+1)>=k ){
-				st.pop_back();
-				cnt++;
-				ptr2++;
-			}
-			st.pop_front();
-			ptr1=st.front();continue;
+		else if(flag==1&&v[i]<2)flag=0;
+		if(v[i]>=2){
+			flag=1;
+		}
+
+	}
+	if(flag1==0){
+		cout << "perfect" << endl;
+		return 0;
+	}
+	queue<int>q;
+	q.push(0);int sum=1;int cnt=1;
+	for(int i=0;i<=n;i++){
+		cnt=0;
+		int par=q.front();q.pop();
+		while(!q.empty()){
+			q.pop();
+		}
+		while(cnt<v[i]){
+			cout << par << " ";
+			cnt++;
+			q.push(sum);
+			sum++;
+		}
+	}
+	cout << endl;
+
+	queue<int>q2;
+	q2.push(0);sum=0;int prev_sum=0;int par2=-1;
+	for(int i=0;i<=n;i++){
+		//trace1(q2.size());
+		cnt=0;sum=v[i]+prev_sum;prev_sum=sum;
+		int par=q2.front();q2.pop();
+		if(!q2.empty()){
+			par2=q2.front();
+		}
+		while(!q2.empty()){
+			q2.pop();
+		}
+		//trace1(par2);
+		while(cnt<v[i]){
+			cout << par << " ";
+			cnt++;
+			q2.push(sum);
+			sum--;
+			if(par2!=-1)par=par2;
+			//trace1(sum);
 
 		}
-		else if(  (st.size()+1)>=k ){
-			ptr2++;
-			st.pop_back();
-			cnt++;
-			continue;
-		}
-		st.push_back(ptr2);
-		ptr2++;
-		//trace1(ptr2);
 	}
-	cout << cnt << endl;
+	cout << endl;
+
 	return 0;
 }

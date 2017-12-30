@@ -40,42 +40,69 @@ typedef vector< ii > vii;
 lli modpow(lli a,lli n,lli temp){lli res=1,y=a;while(n>0){if(n&1)res=(res*y)%temp;y=(y*y)%temp;n/=2;}return res%temp;}
 
 
-int main(){
-	lli n,m,k;
-	cin >> n >> m >> k;
-	deque<int>st;vector<int>v;
-	for(int i=0;i<n;i++){
-		lli l;cin >> l;
-		v.PB(l);
-	}
-	sort(v.begin(),v.end());
-	int cnt=0;int ptr1=0;int ptr2=0;
-	st.push_back(0);
-	while(ptr2<v.size()){
-		if( (v[ptr2]-v[ptr1]+1)>m ){
-			st.pop_front();
-			ptr1=st.front();continue;
-		}
-		if( (v[ptr2]-v[ptr1]+1) >= m ){
-			if( (st.size()+1)>=k ){
-				st.pop_back();
-				cnt++;
-				ptr2++;
-			}
-			st.pop_front();
-			ptr1=st.front();continue;
 
-		}
-		else if(  (st.size()+1)>=k ){
-			ptr2++;
-			st.pop_back();
-			cnt++;
+int main(){
+
+	double n,r;cin >> n >> r;
+	vector<double>v2;
+	r=r*2;
+	vector<double>v;
+	for(int i=0;i<n;i++){
+		lli k;cin >> k;v.push_back(k);
+	}
+	for(int i=0;i<n;i++){
+		if(i==0){
+			//cout << r/2 << " ";
+			printf("%.6lf ", r/2);
+			v2.push_back(r/2);
 			continue;
 		}
-		st.push_back(ptr2);
-		ptr2++;
-		//trace1(ptr2);
+		else{
+			lli mn=-1;lli mny=INT_MIN;
+			v2.push_back(-1.0000000);
+			for(int j=i-1;j>=0;j--){
+				if(  abs(v[i]-v[j])<=(r)  ){
+					
+					mn=j;
+					mny=v2[j];
+					
+
+					double y1,y2;
+					double  c = (v[i]-v[mn])*(v[i]-v[mn]);
+					//trace1(c);
+					if(c<=(r*r)){
+						//trace3(sqrt( (r*r-c) ),r*r,v2[mn]);
+						
+						//cout << sqrt( (r*r-c) ) + v2[mn] << " ";
+						//printf("%.6lf ",sqrt( (r*r-c) ) + v2[mn] );
+						//trace1(sqrt( (r*r-c) ) + v2[mn]);
+						if( (sqrt( (r*r-c) ) + v2[mn])>v2[i]  )
+						v2[i]=sqrt( (r*r-c) ) + v2[mn];
+					}
+					else{
+						//cout<< r+v[mn]<< " ";
+						//printf("%.6lf ",r+v[mn] );
+						if( v2[i]<r+v2[mn] )
+						v2[i]=(r+v2[mn]);
+					}
+				}
+				//trace3(v2[i],mn,i);
+			}
+			//
+
+			if(mn==-1){
+				printf("%.6lf ",r/2 );
+				v2[i]=r/2;
+				continue;
+			}
+			else{
+				printf("%.6lf ",v2[i] );
+			}
+			//trace1(mn);
+			
+		}
+	
 	}
-	cout << cnt << endl;
+	cout << endl;
 	return 0;
 }

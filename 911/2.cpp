@@ -41,41 +41,22 @@ lli modpow(lli a,lli n,lli temp){lli res=1,y=a;while(n>0){if(n&1)res=(res*y)%tem
 
 
 int main(){
-	lli n,m,k;
-	cin >> n >> m >> k;
-	deque<int>st;vector<int>v;
-	for(int i=0;i<n;i++){
-		lli l;cin >> l;
-		v.PB(l);
+	lli n,a,b;
+	cin >> n>> a >> b;
+	int maxi=INT_MIN;
+	for(int i=1;i<n;i++){
+		if(i>a || (n-i)>b)continue;;
+		if(  min( (a/i), (b/(n-i))  )>maxi  ){
+			maxi=  min( (a/i), (b/(n-i))  );
+		}
 	}
-	sort(v.begin(),v.end());
-	int cnt=0;int ptr1=0;int ptr2=0;
-	st.push_back(0);
-	while(ptr2<v.size()){
-		if( (v[ptr2]-v[ptr1]+1)>m ){
-			st.pop_front();
-			ptr1=st.front();continue;
+	for(int i=1;i<n;i++){
+		if(i>b || (n-i)>a)continue;
+		if(  min( (b/i), (a/(n-i))  )>maxi  ){
+			maxi=  min( (b/i), (a/(n-i))  );
 		}
-		if( (v[ptr2]-v[ptr1]+1) >= m ){
-			if( (st.size()+1)>=k ){
-				st.pop_back();
-				cnt++;
-				ptr2++;
-			}
-			st.pop_front();
-			ptr1=st.front();continue;
-
-		}
-		else if(  (st.size()+1)>=k ){
-			ptr2++;
-			st.pop_back();
-			cnt++;
-			continue;
-		}
-		st.push_back(ptr2);
-		ptr2++;
-		//trace1(ptr2);
 	}
-	cout << cnt << endl;
+	cout << maxi << endl;
 	return 0;
+
 }

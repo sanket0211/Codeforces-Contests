@@ -41,40 +41,19 @@ lli modpow(lli a,lli n,lli temp){lli res=1,y=a;while(n>0){if(n&1)res=(res*y)%tem
 
 
 int main(){
-	lli n,m,k;
-	cin >> n >> m >> k;
-	deque<int>st;vector<int>v;
-	for(int i=0;i<n;i++){
-		lli l;cin >> l;
-		v.PB(l);
-	}
-	sort(v.begin(),v.end());
-	int cnt=0;int ptr1=0;int ptr2=0;
-	st.push_back(0);
-	while(ptr2<v.size()){
-		if( (v[ptr2]-v[ptr1]+1)>m ){
-			st.pop_front();
-			ptr1=st.front();continue;
-		}
-		if( (v[ptr2]-v[ptr1]+1) >= m ){
-			if( (st.size()+1)>=k ){
-				st.pop_back();
-				cnt++;
-				ptr2++;
-			}
-			st.pop_front();
-			ptr1=st.front();continue;
 
+	string s;
+	cin >> s;int cnt=0;
+	for(int i=0;i<s.size();i++){
+		if( s[i]>='0' && s[i]<='9' ){
+			int dig=s[i]-'0';
+			if(dig%2!=0){
+				cnt++;
+			}
 		}
-		else if(  (st.size()+1)>=k ){
-			ptr2++;
-			st.pop_back();
+		else if( s[i]=='a' || s[i]=='e' || s[i]=='i' || s[i]=='o' || s[i]=='u'){
 			cnt++;
-			continue;
 		}
-		st.push_back(ptr2);
-		ptr2++;
-		//trace1(ptr2);
 	}
 	cout << cnt << endl;
 	return 0;

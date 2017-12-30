@@ -40,42 +40,55 @@ typedef vector< ii > vii;
 lli modpow(lli a,lli n,lli temp){lli res=1,y=a;while(n>0){if(n&1)res=(res*y)%temp;y=(y*y)%temp;n/=2;}return res%temp;}
 
 
-int main(){
-	lli n,m,k;
-	cin >> n >> m >> k;
-	deque<int>st;vector<int>v;
-	for(int i=0;i<n;i++){
-		lli l;cin >> l;
-		v.PB(l);
-	}
-	sort(v.begin(),v.end());
-	int cnt=0;int ptr1=0;int ptr2=0;
-	st.push_back(0);
-	while(ptr2<v.size()){
-		if( (v[ptr2]-v[ptr1]+1)>m ){
-			st.pop_front();
-			ptr1=st.front();continue;
-		}
-		if( (v[ptr2]-v[ptr1]+1) >= m ){
-			if( (st.size()+1)>=k ){
-				st.pop_back();
-				cnt++;
-				ptr2++;
-			}
-			st.pop_front();
-			ptr1=st.front();continue;
 
-		}
-		else if(  (st.size()+1)>=k ){
-			ptr2++;
-			st.pop_back();
-			cnt++;
-			continue;
-		}
-		st.push_back(ptr2);
-		ptr2++;
-		//trace1(ptr2);
+int main(){
+	lli n;cin >> n;int arr[26];int flag=0;int cnt=0;int ans=0;
+	for(int i=0;i<26;i++){
+		arr[i]=1;
 	}
-	cout << cnt << endl;
+	for(int i=0;i<n;i++){
+		string s,t;
+		cin >> s >> t;
+		if (i==n-1)continue;
+		//trace2(ans,flag);
+		//trace3(flag,s,t);
+		for(int j=0;j<26;j++){
+			if(arr[j]==1)cnt++;
+		}
+		//trace1(cnt);
+		if(cnt==1){
+			flag=1;
+			
+		}
+		cnt=0;
+		if(s[0]=='.' || s[0]=='?'){
+			if(flag==1&&s[0]=='?'){
+				ans++;continue;
+			}
+			for(int j=0;j<t.size();j++){
+				arr[t[j]-'a']=-1;
+			}
+		}
+		else if(s[0]=='!' ){
+			if(flag==1&&s[0]=='!'){
+				ans++;continue;
+			}
+			for(int j=0;j<t.size();j++){
+				//trace1(arr[j]);
+				if(arr[t[j]-'a']==1)
+				arr[t[j]-'a']=2;
+			}
+			for(int j=0;j<26;j++){
+				if(arr[j]==1)arr[j]=-1;
+			}
+			for(int j=0;j<26;j++){
+				if(arr[j]==2){
+					arr[j]=1;
+					//trace1(j);
+				}
+			}
+		}
+	}
+	cout << ans << endl;
 	return 0;
 }

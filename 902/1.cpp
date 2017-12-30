@@ -39,43 +39,39 @@ typedef vector< vi > vvi;
 typedef vector< ii > vii;
 lli modpow(lli a,lli n,lli temp){lli res=1,y=a;while(n>0){if(n&1)res=(res*y)%temp;y=(y*y)%temp;n/=2;}return res%temp;}
 
-
 int main(){
-	lli n,m,k;
-	cin >> n >> m >> k;
-	deque<int>st;vector<int>v;
+	lli n,m;
+	cin >> n >> m;
+	map<int,int>mp;
+	vector<pair<int,int> >v;
 	for(int i=0;i<n;i++){
-		lli l;cin >> l;
-		v.PB(l);
+		lli a,b;cin >> a >> b;
+		v.push_back(make_pair(a,b));
+		mp.insert(make_pair(a,b));
 	}
-	sort(v.begin(),v.end());
-	int cnt=0;int ptr1=0;int ptr2=0;
-	st.push_back(0);
-	while(ptr2<v.size()){
-		if( (v[ptr2]-v[ptr1]+1)>m ){
-			st.pop_front();
-			ptr1=st.front();continue;
-		}
-		if( (v[ptr2]-v[ptr1]+1) >= m ){
-			if( (st.size()+1)>=k ){
-				st.pop_back();
-				cnt++;
-				ptr2++;
-			}
-			st.pop_front();
-			ptr1=st.front();continue;
+	int mini=0;
+	for(int i=0;i<=100;i++){
 
+		if(i>mini){
+			cout << "NO" << endl;
+			return 0;
 		}
-		else if(  (st.size()+1)>=k ){
-			ptr2++;
-			st.pop_back();
-			cnt++;
-			continue;
+		if(mp.find(i)!=mp.end()){
+			if(mini<mp[i])mini=mp[i];
 		}
-		st.push_back(ptr2);
-		ptr2++;
-		//trace1(ptr2);
+		
+		
+		
+		if(mini>=m){
+			cout << "YES" << endl;
+			return 0;
+		}
 	}
-	cout << cnt << endl;
+	if(mini>=m){
+		cout << "YES" << endl;
+	}
+	else{
+		cout << "NO" << endl;
+	}
 	return 0;
 }

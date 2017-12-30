@@ -40,42 +40,26 @@ typedef vector< ii > vii;
 lli modpow(lli a,lli n,lli temp){lli res=1,y=a;while(n>0){if(n&1)res=(res*y)%temp;y=(y*y)%temp;n/=2;}return res%temp;}
 
 
-int main(){
-	lli n,m,k;
-	cin >> n >> m >> k;
-	deque<int>st;vector<int>v;
-	for(int i=0;i<n;i++){
-		lli l;cin >> l;
-		v.PB(l);
-	}
-	sort(v.begin(),v.end());
-	int cnt=0;int ptr1=0;int ptr2=0;
-	st.push_back(0);
-	while(ptr2<v.size()){
-		if( (v[ptr2]-v[ptr1]+1)>m ){
-			st.pop_front();
-			ptr1=st.front();continue;
-		}
-		if( (v[ptr2]-v[ptr1]+1) >= m ){
-			if( (st.size()+1)>=k ){
-				st.pop_back();
-				cnt++;
-				ptr2++;
-			}
-			st.pop_front();
-			ptr1=st.front();continue;
 
-		}
-		else if(  (st.size()+1)>=k ){
-			ptr2++;
-			st.pop_back();
-			cnt++;
-			continue;
-		}
-		st.push_back(ptr2);
-		ptr2++;
-		//trace1(ptr2);
+int main(){
+	int arr[1000006]={0};
+	lli n;cin >> n;lli mini=INT_MAX;
+	vector<pair<int,int> >v;
+	for(int i=0;i<n;i++){
+		lli s,d;
+		cin >> s >> d;
+		v.push_back(make_pair(s,d));
 	}
-	cout << cnt << endl;
+	mini=INT_MIN;
+	for(int i=0;i<n;i++){
+		int ind=i;int m=0;
+		while(arr[v[ind].F+m]==-1||(v[ind].F+m)<=mini){
+			m=m+v[ind].S;
+		}
+		arr[v[ind].F+m]=-1;
+		mini=v[ind].F+m;
+	}
+	cout << mini << endl;
 	return 0;
+
 }

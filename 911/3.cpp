@@ -41,41 +41,18 @@ lli modpow(lli a,lli n,lli temp){lli res=1,y=a;while(n>0){if(n&1)res=(res*y)%tem
 
 
 int main(){
-	lli n,m,k;
-	cin >> n >> m >> k;
-	deque<int>st;vector<int>v;
-	for(int i=0;i<n;i++){
-		lli l;cin >> l;
-		v.PB(l);
+	
+	int arr[1501]={0};
+	lli k1,k2,k3;cin >> k1 >> k2 >> k3;
+	arr[k1]++;arr[k2]++;arr[k3]++;
+	if( arr[1]>=1 || arr[2]>=2 || (arr[3]>=3) || (arr[4]>=2 && arr[2]>=1) ){
+		cout << "YES" << endl;
 	}
-	sort(v.begin(),v.end());
-	int cnt=0;int ptr1=0;int ptr2=0;
-	st.push_back(0);
-	while(ptr2<v.size()){
-		if( (v[ptr2]-v[ptr1]+1)>m ){
-			st.pop_front();
-			ptr1=st.front();continue;
-		}
-		if( (v[ptr2]-v[ptr1]+1) >= m ){
-			if( (st.size()+1)>=k ){
-				st.pop_back();
-				cnt++;
-				ptr2++;
-			}
-			st.pop_front();
-			ptr1=st.front();continue;
+	else{
+		cout << "NO" << endl;
+	}
 
-		}
-		else if(  (st.size()+1)>=k ){
-			ptr2++;
-			st.pop_back();
-			cnt++;
-			continue;
-		}
-		st.push_back(ptr2);
-		ptr2++;
-		//trace1(ptr2);
-	}
-	cout << cnt << endl;
+
 	return 0;
+
 }

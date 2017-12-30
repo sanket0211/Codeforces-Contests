@@ -39,42 +39,45 @@ typedef vector< vi > vvi;
 typedef vector< ii > vii;
 lli modpow(lli a,lli n,lli temp){lli res=1,y=a;while(n>0){if(n&1)res=(res*y)%temp;y=(y*y)%temp;n/=2;}return res%temp;}
 
-
 int main(){
-	lli n,m,k;
-	cin >> n >> m >> k;
-	deque<int>st;vector<int>v;
-	for(int i=0;i<n;i++){
-		lli l;cin >> l;
-		v.PB(l);
+	vector<vector<int> >v;
+	lli n;cin >> n;
+	v.resize(n+1);vector<int>c;
+	for(int i=2;i<=n;i++){
+		lli k;cin >> k;
+		v[i].push_back(k);
+		v[k].push_back(i);
 	}
-	sort(v.begin(),v.end());
-	int cnt=0;int ptr1=0;int ptr2=0;
-	st.push_back(0);
-	while(ptr2<v.size()){
-		if( (v[ptr2]-v[ptr1]+1)>m ){
-			st.pop_front();
-			ptr1=st.front();continue;
-		}
-		if( (v[ptr2]-v[ptr1]+1) >= m ){
-			if( (st.size()+1)>=k ){
-				st.pop_back();
-				cnt++;
-				ptr2++;
-			}
-			st.pop_front();
-			ptr1=st.front();continue;
-
-		}
-		else if(  (st.size()+1)>=k ){
-			ptr2++;
-			st.pop_back();
+	for(int i=0;i<n;i++){
+		lli k;
+		cin >> k;
+		c.push_back(k);
+	}
+	queue<pair<int,int> >q;
+	lli cnt=0;
+	int vis[1000005]={0};
+	q.push(make_pair(1,0));
+	while(!q.empty()){
+		pair<int,int>node=q.front();
+		q.pop();
+		int col=node.S;int ver=node.F;
+		vis[ver]=1;
+		//trace2(col,ver)
+		if(col!=c[ver-1]){
 			cnt++;
-			continue;
+			
 		}
-		st.push_back(ptr2);
-		ptr2++;
-		//trace1(ptr2);
+		for(int i=0;i<v[ver].size();i++){
+			if(vis[v[ver][i]]==0)
+			q.push(make_pair(v[ver][i],c[ver-1]));
+		}
+		/*else{
+			for(int i=0;i<v[ver].size();i++){
+				if(vis[v[ver][i]]==0)
+				q.push(make_pair(v[ver][i],0));
+			}
+		}*/
+
 	}
 	cout << cnt << endl;
 	return 0;
