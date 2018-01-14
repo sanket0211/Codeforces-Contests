@@ -41,11 +41,23 @@ lli modpow(lli a,lli n,lli temp){lli res=1,y=a;while(n>0){if(n&1)res=(res*y)%tem
 
 
 int main(){
-	lli n;n=100000;
-	cout << n << endl;
-	for(int i=0;i<n;i++){
-		cout << "1" << " ";
+
+	lli n,k;
+	cin >> n >>k ;
+	if(k==1){
+		cout<<n << endl;
+		return 0;
 	}
-	cout << endl;
+	else{
+		lli cnt=0;lli temp=n;
+		while(temp>0){
+			temp=temp/2;cnt++;
+		}
+		lli sum=0;
+		for(int i=0;i<cnt;i++){
+			sum = sum + pow(2,i);
+		}
+		cout << sum << endl;
+	}
 	return 0;
 }
